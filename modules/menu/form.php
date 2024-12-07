@@ -39,7 +39,7 @@ if(isset($_POST['item'])){
     <label>Select category<small>(press control for select multiple)</small></label>
     <?php $cats=explode(',',$info['category']);?>
     <select name="category[]" class="form-select" multiple>
-        <option value="Starter" <?=(in_array('Starter',$cats))? 'selected':'';?>>Starter</option>
+        <option value="Starter" <?=(in_array('Starter',$cats))? 'selected':'';?>>Starters</option>
         <option value="main cource" <?=(in_array('main cource',$cats))? 'selected':'';?>>Main cource</option>
         <option value="fast food" <?=(in_array('fast food',$cats))? 'selected':'';?>>Fast food</option>
         <option value="deserts" <?=(in_array('deserts',$cats))? 'selected':'';?>>Deserts</option>
