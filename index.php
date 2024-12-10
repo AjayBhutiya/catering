@@ -1,4 +1,6 @@
 <?php
+include_once "helper/SESSION.PHP";
+Session::init();
 define("root",'http://localhost/event/');
 include_once "helper/redirect.php";
 include_once "helper/DB.php";

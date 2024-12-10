@@ -1,5 +1,5 @@
 <?php
-//require_once "helper/DB.php";
+require_once "helper/DB.php";
 // print_r($_POST);
 $obj = DB('menu');
 if($uid){
@@ -16,6 +16,7 @@ if(isset($_POST['item'])){
     ];
     // $_POST['category']=implode(',',$_POST['category']);
     if($obj->save($info,$uid)){
+       Session::set('gt',"Data ". ($uid?"Update":"Saved")." Sucessfully");
     redirect("menu");
 }else{
       echo "something went wrong!";
@@ -27,7 +28,7 @@ if(isset($_POST['item'])){
 <form method="post">
     <div class ="mb-3">
     <lable for="item"> Item Name</lable>
-    <input type="text" class="form-control" placeholder="Enter item name" required name="item" id="item" value="<?=$info['item']?>">
+    <input type="text" class="form-control" placeholder="Enter item name" required name="item" id="item" value="<?=$info['item']??""?>">
 </div>
 
     <div class ="mb-3">
@@ -37,7 +38,7 @@ if(isset($_POST['item'])){
 
     <div class="mb-3">
     <label>Select category<small>(press control for select multiple)</small></label>
-    <?php $cats=explode(',',$info['category']);?>
+    <?php $cats=explode(',',$info['category']??"");?>
     <select name="category[]" class="form-select" multiple>
         <option value="Starter" <?=(in_array('Starter',$cats))? 'selected':'';?>>Starters</option>
         <option value="main cource" <?=(in_array('main cource',$cats))? 'selected':'';?>>Main cource</option>
@@ -50,7 +51,7 @@ if(isset($_POST['item'])){
     <label>Status</label>
     <select name="status" class="form-select">
         <option value="yes">Yes</option>
-        <option value="no" <?=($info['status']=='no')? 'selected':'';?>>No</option>
+        <option value="no" <?=(isset($info['status'])&&$info['status']=='no')? 'selected':'';?>>No</option>
 </select>
 
 </div>
