@@ -16,7 +16,7 @@ if(isset($_POST['item'])){
     ];
     // $_POST['category']=implode(',',$_POST['category']);
     if($obj->save($info,$uid)){
-       Session::set('gt',"Data ". ($uid?"Update":"Saved")." Sucessfully");
+       Session::set('get',"Data ". ($uid?"Update":"Saved")." Sucessfully");
     redirect("menu");
 }else{
       echo "something went wrong!";

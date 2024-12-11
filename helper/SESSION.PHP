@@ -7,6 +7,7 @@ static function init(){
     $_SESSION[$Key]=$value;
    }
        static function get($key){
+        
          return $_SESSION[$key]??null;
        }
              static function delete($key)

@@ -17,7 +17,7 @@ function DB($table,$pk='id'){
         
     }
     foreach($data as $colname=>$value){
-        $sql.="$colname='".addslashes($value)."',";
+        $sql.="$colname='". addslashes($value)."',";
     }
       $sql=substr($sql,0,-1).$wh;
     
@@ -31,6 +31,13 @@ public function all($cols="*",$order=""){
     }
          $sql="select $cols from $this->table order  by $order";
         return $this->query($sql)?->fetch_all(1);
+}
+public function custom($sql,$fetch=1){
+    
+         if($fetch)
+         return $this->query($sql)?->fetch_all(1);
+
+        return $this->query($sql)?->fetch_assoc();
 }
 public function find($id,$cols="*"){
     

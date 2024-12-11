@@ -3,7 +3,7 @@ $data = DB('menu')->all();
 if(isset($_POST['del'])){
     $delid=implode(",",$_POST['del']);
     DB('menu')->delete($delid);
-    Session::set('gt',"delete successfully!");
+    Session::set('get',"delete successfully!");
     redirect('menu');
     exit;
 }
@@ -11,11 +11,14 @@ if(isset($_POST['del'])){
 <div>
 <a href="<?=root;?>menu/form" class="btn btn-primary"> Add Item</a>
 </div>
-<?php if($msg=Session::get('gt')){
+<?php
+echo $msg=Session::get('get');
+if($msg=Session::get('get')){
+    echo $msg;
     ?>
     <div class="alert alert-success text-center h3"><?=$msg;?></div>
     <?php
-     Session::delete('gt');
+     Session::delete('get');
 }
 ?>
 <form method="post"> 

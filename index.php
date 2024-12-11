@@ -1,10 +1,10 @@
 <?php
-include_once "helper/SESSION.PHP";
+include_once "helper/session.php";
 Session::init();
 define("root",'http://localhost/event/');
 include_once "helper/redirect.php";
 include_once "helper/DB.php";
-$module = "booking";
+$module = "users";
 $file= "index";
 $uid=null;
 $url=$_GET['url'] ?? null;
