@@ -1,4 +1,5 @@
 <?php
+mustlogin();
 require_once "helper/DB.php";
 // print_r($_POST);
 $obj = DB('menu');

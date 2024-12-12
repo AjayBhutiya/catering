@@ -4,7 +4,7 @@ static function init(){
     @session_start();
 }
    static function set($key, $value){
-    $_SESSION[$Key]=$value;
+    $_SESSION[$key]=$value;
    }
        static function get($key){
         
@@ -17,7 +17,7 @@ static function init(){
                }
             }
             static function destroy(){
-                $session_destory();
+                session_destory();
             }
             static function sessionId(){
                 return session_id();
