@@ -6,36 +6,28 @@ body {
 .main {
     height: 100%;
     display: grid;
-    grid-template-rows: 50px 1fr 70px;
+    grid-template-rows: 50px 1fr 30px;
 }
-
-
-/* header,section,footer{
-        border:1px solid red
-    } */
-
-
-/* header,section,footer{
-        border:4px solid red
-    } */
 
 .pagetitle {
     padding: 5px;
     text-align: center;
     font-size: 2em;
     font-weight: bold;
-    color: #0336;
-    text-shadow: 2px 1px 3px #000;
+    color: #336;
+    text-shadow: 2px 1px 3px #aa0;
     border-bottom: 1px solid #ccf;
     margin-bottom: 5px;
 }
 
-;
-.cont {
-    margin-top: 10px;
-    box-shadow: 1px 1px 5px #334
+.pagetitle>span {
+    color: #aa0;
 }
 
-.pagetitle>span {
-    color: #778103;
+.cont {
+    width: 70%;
+    padding: 10px;
+    margin: 10px auto;
+    box-shadow: 1px 1px 5px #334;
+    border-radius: 7px;
 }
