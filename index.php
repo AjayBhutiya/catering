@@ -2,6 +2,7 @@
 require_once "helper/Session.php";
 Session::init();
 define('root', 'http://localhost/event/');
+define('BNO',3);
 require_once "helper/redirect.php";
 require_once "helper/DB.php";
 $module = "users";

@@ -5,14 +5,30 @@ require_once "helper/DB.php";
 $obj = DB('menu');
 if($uid){
    $info= $obj->find($uid);
-   
+   $picture=$info['picture'];
 }
 if(isset($_POST['item'])){
+    $valid=1;
+    if($_FILES['picture']['error']==0){
+     if('image'==substr($_FILES['picture']['type'],0,strpos($_FILES['picture']['type'],'/'))){
+       if(isset($picture))
+       unlink("public/image/$picture");
+        $picture=time()."_Axixa_". $_FILES['picture']['name'];
+           move_uploaded_file($_FILES['picture']['tmp_name'],'public./image'.$picture);
+     }
+     else{
+            $valid =0;
+            $err=  "file type not image type";
+     }
+    
+    }
+    if($valid){
     $info=[
         'item'=>$_POST['item'],
         'decription'=>$_POST['decription'],
         'category'=>implode(',',$_POST['category']),
-        'status'=>$_POST['status']
+        'status'=>$_POST['status'],
+        'picture'=>$picture
 
     ];
     // $_POST['category']=implode(',',$_POST['category']);
@@ -20,22 +36,27 @@ if(isset($_POST['item'])){
        Session::set('get',"Data ". ($uid?"Update":"Saved")." Sucessfully");
     redirect("menu");
 }else{
-      echo "something went wrong!";
+      $err= "something went wrong!";
 }
+    }
 }
 ?>
 <div class ="alert alert-primary h3 text-center">
     Item  <?=$uid?"Edit":'Add'?> Form</div>
-<form method="post">
+    <?php
+    if(isset($err)){
+        ?>
+        <div class="alert alert-danger"><?=$err?></div>
+        <?php
+    }
+    ?>
+<form method="post" enctype="multipart/form-data">
     <div class ="mb-3">
     <lable for="item"> Item Name</lable>
     <input type="text" class="form-control" placeholder="Enter item name" required name="item" id="item" value="<?=$info['item']??""?>">
 </div>
 
-    <div class ="mb-3">
-    <lable for="decription">decription</lable>
-    <textarea class="form-control" rows="10" placeholder="decription" required name="decription" id="decription"> <?=$info['decription']??''?></textarea>
-</div>
+    
 
     <div class="mb-3">
     <label>Select category<small>(press control for select multiple)</small></label>
@@ -55,6 +76,30 @@ if(isset($_POST['item'])){
         <option value="no" <?=(isset($info['status'])&&$info['status']=='no')? 'selected':'';?>>No</option>
 </select>
 
+</div>
+<?php
+
+if ($picture) {
+    ?>
+    <div class="mb-3">
+    <label for ="pic">Upload picture</label>
+    <div class="form-control">
+<img src="<?=root.'public/image/'.$picture;?>" height="150px">    
+</div>
+
+</div>
+    <?php
+}
+?>
+<div class="mb-3">
+    <label for ="pic">Upload picture</label>
+    <input type="file" class="form-control form-control-sm" accept="image/*" name="picture" id ="pic">
+    
+
+</div>
+<div class ="mb-3">
+    <lable for="decription">decription</lable>
+    <textarea class="form-control" rows="5" placeholder="decription" required name="decription" id="decription"> <?=$info['decription']??''?></textarea>
 </div>
 <div class ="mb-3 text-center">
     <button class="btn-success">  <?=$uid?"update":'save'?></button>

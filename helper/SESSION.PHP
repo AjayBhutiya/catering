@@ -17,7 +17,7 @@ static function init(){
                }
             }
             static function destroy(){
-                session_destory();
+                session_destroy();
             }
             static function sessionId(){
                 return session_id();

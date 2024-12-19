@@ -1,5 +1,5 @@
 <?php
 mustlogin();
-Session::destory();
+Session::destroy();
 redirect('users');
-?>
+?>  
