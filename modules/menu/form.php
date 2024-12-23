@@ -79,13 +79,13 @@ if(isset($_POST['item'])){
 </div>
 <?php
 
-if ($picture) {
+if (isset($picture)){
     ?>
     <div class="mb-3">
     <label for ="pic">Upload picture</label>
-    <div class="form-control">
+    <div class="form-control"> -->
 <img src="<?=root.'public/image/'.$picture;?>" height="150px">    
-</div>
+</div> 
 
 </div>
     <?php

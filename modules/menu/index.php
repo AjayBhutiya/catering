@@ -3,6 +3,10 @@ mustlogin();
 $data = DB('menu')->all();
 if(isset($_POST['del'])){
     $delid=implode(",",$_POST['del']);
+    foreach($_POST['del'] as $did){
+        if($pn=(DB('menu')->find($did,'picture')['picture']));
+        unlink("public/image/$pn");
+    }
     DB('menu')->delete($delid);
     Session::set('get',"delete successfully!");
     redirect('menu');
@@ -29,6 +33,7 @@ if($msg=Session::get('get')){
             <th>S.NO</th>
             <th><input type="checkbox" id="all" onclick="checkdel(this)"><lable for="all">All</lable></th>
             <th>Item Name</th>
+            <th> picture</th>
             <th>Category</th>
             <th>Status</th>
             <th>item Inser</th>
@@ -47,6 +52,15 @@ if($msg=Session::get('get')){
                 title="Click for edit">
                 <?= $info['item']; ?>
            </a>
+            </td>
+            <td>
+                <?php if($info['picture']){ ?>
+            <img class="rounded-circle" src="<?=root.'public/image/'.$info['picture'];?>" height="150px"> 
+            <?php }
+            else {
+                  echo "<span class='text-muted'>N/A</span>";
+            } ?>
+
             </td>
             <td><?=$info['category'];?></td>
             <td><?=$info['status'];?></td>

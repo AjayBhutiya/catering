@@ -6,13 +6,14 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script> -->
 <script>
     $(document).ready(function() {
 
         var oTable = $('#list').dataTable({
             "aoColumnDefs": [{
                     "bSortable": false,
-                    "aTargets": [0, 1]
+                    "aTargets": [0, 1 , 3]
                 },
 
             ]
