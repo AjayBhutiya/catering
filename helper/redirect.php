@@ -1,7 +1,13 @@
 <?php
-function redirect($path){
- $path=root.$path;
-header("location:$path");
+function redirect($path)
+{
+    $path = root.$path;
+ echo <<<JS
+ <script>
+
+location.href='$path';
+</script>
+JS;
 }
 function mustlogin(){
     if(!Session::get('logindtl')){

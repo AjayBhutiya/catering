@@ -26,9 +26,11 @@ if(isset($_POST['item'])){
     $info=[
         'item'=>$_POST['item'],
         'decription'=>$_POST['decription'],
-        'category'=>implode(',',$_POST['category']),
-        'status'=>$_POST['status'],
-        'picture'=>$picture
+        'category' => ($_POST['category']) ? implode(',', $_POST['category']) : "",
+        'status' => $_POST['status'],
+        'picture'=>$picture,
+        'price'=>$_POST['price'],   
+        'unit'=>$_POST['unit'],                        
 
     ];
     // $_POST['category']=implode(',',$_POST['category']);
@@ -55,9 +57,22 @@ if(isset($_POST['item'])){
     <lable for="item"> Item Name</lable>
     <input type="text" class="form-control" placeholder="Enter item name" required name="item" id="item" value="<?=$info['item']??""?>">
 </div>
+<form method="post" enctype="multipart/form-data">
+    <div class ="mb-3">
+    <lable for="price"> item Price</lable>
+    <input type="number" class="form-control" placeholder="Enter item price" required name="price" id="price" value="<?=$info['price']??""?>">
+</div>
 
-    
-
+<form method="post" enctype="multipart/form-data">
+    <div class ="mb-3">
+    <lable for="unit"> Unit</lable>
+    <input type="text" class="form-select" placeholder="Enter item name" required name="unit" id="unit" list="un" value="<?=$info['unit']??""?>">
+</div>
+    <datalist id="un">
+        <option value="KG">
+        <option value="plate">
+        <option value="piece">
+    </datalist>        
     <div class="mb-3">
     <label>Select category<small>(press control for select multiple)</small></label>
     <?php $cats=explode(',',$info['category']??"");?>

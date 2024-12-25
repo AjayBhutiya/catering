@@ -27,9 +27,12 @@ foreach($ddata as $info){
 }
 
 ?>
-<!-- <form method="post"> -->
+<form method="post"> 
+  
+    <body>
   <div class="container py-5">
     <h1 class="text-center mb-5">Menu</h1>
+    <div class="row">
     <?php foreach($finaldata as $category=>$data){?>
     <h1><div class="text-center mb-4"><?=$category;?>
       <?php
@@ -55,7 +58,7 @@ foreach($ddata as $info){
       <?php } ?>
       
     </div>
-    
+            </div>
     
   </div>
   
