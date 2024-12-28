@@ -12,11 +12,11 @@ if(isset($_POST['name'])){
     $cid = DB('customer')->save($custdata);
     if($cid>0){
         $obj=DB('slip');
-        $count =( $_POST['itemname']);
-      for($i=0;$i<$count;$i++){
-             $slipinfo=[
-                'customer_id'=>$cid,
-                'item'=> $_POST['itemname'][$i],
+        $count = count($_POST['itemname']);
+      for($i = 0; $i<  $count; $i++){
+             $slipinfo = [
+                'customer_id' => $cid,
+                'item' => $_POST['itemname'][$i],
                 'qty'=> $_POST['qty'][$i],
                 'price_per_unit'=> $_POST['price_per_unit'][$i],
                 'discount_per_unit'=> $_POST['discount_per_unit'][$i],
@@ -64,21 +64,27 @@ if(isset($_POST['name'])){
 
             <!-- Item Details Section -->
             <div id="parentdiv">
+            <h5>Item Details</h5>
             <div class="form-section" id="childdiv1">
-                <h5>Item Details</h5>
+               
                 <div class="row mb-3">
                     <div class="col-md-2">
                         <label for="item" class="form-label">Select Item</label>
-                        <select id="item" name="item[]" class="form-select" onchange="setPrice(this.value,'<?=root;?>',1)">
+                        <select id="item" name="item[]" class="form-select" onchange="setPrice(this,'<?=root; ?>',1)">
                             <option value="" selected disabled>Select an item</option>
                             <?php foreach($allitems as $item){?>
-                            <option value="<?= $item['id'];?>"><?= $item['item'];?></option>
+                            <option value="<?= $item['id']; ?>"><?= $item['item']; ?></option>
                            <?php } ?>
                         </select>
                     </div>
                     <div class="col-md-2" id="dprice1">
                         <label for="price" class="form-label">Price</label>
-                        <input type="text" id="price1" name="price_per_unit[]" class="form-control"  placeholder="Price">
+                        <div class="input-group">
+                        <input type="text" id="price1" name="price_per_unit[]" class="form-control"  placeholder="Price" disabled>
+                        <div class="input-group-append">
+                                        <span class="input-group-text">-</span>
+                            </div>
+                            </div>
                     </div>
                     <div class="col-md-2">
                         <label for="quantity" class="form-label">Quantity</label>
@@ -92,7 +98,7 @@ if(isset($_POST['name'])){
                     </div>
                 <div class="col-md-2" >
                         <label for="discount" class="form-label">Discount</label>
-                        <input type="text" id="discount1"  name="discount_per_unit[]" class="form-control" placeholder="discount"  readonly>
+                        <input type="text" id="discount1"  name="discount_per_unit[]" onchange="calprice(this)" class="form-control" placeholder="discount"  readonly>
                     </div>
 
                     <div class="col-md-2" >
@@ -103,18 +109,18 @@ if(isset($_POST['name'])){
               </div>
                 </div>
                 <div>
-                                <input type="hidden" id="totnode" >
+                                <input type="hidden" id="totnode" value="1">
                                 <button type="button" class="btn btn-success" onclick="creatNodess('<?= root; ?>')">New</button>
                             </div>
             <!-- Submit Button -->
-            <div class="text-center">
+            <div class="text-center mb-3">
                 <button type="submit" class="btn btn-success" >Submit Booking</button>
             </div>
         </div>
                             </form>
     </div>
     <script>
-        function setPrice(set,root,elno){
+        function setPrice(sel,root,elno){
             let id = sel.value;
             $.ajax({
                url: root + "menu/loaditem",
@@ -132,7 +138,7 @@ if(isset($_POST['name'])){
                }
             });
         }
-        function createNodess(){
+        function creatNodess(root){
             totnode.value = Number(totnode.value) +1 ;
         const x = childdiv1.cloneNode(true);
         x.children[0].children[1].id = "dprice" + totnode.value;
@@ -146,7 +152,7 @@ if(isset($_POST['name'])){
         x.id = "childdiv"+ totnode.value;
         x.children[0].children[1].children[1].children[0].value = "";
         x.children[0].children[2].children[1].value = "";
-        x.children[0].children[3.children[1].value = "";
+        x.children[0].children[3].children[1].value = "";
         x.children[0].children[4].children[1].value = "";
         x.children[0].children[5].children[1].value = "";
         parentdiv.appendChild(x);
@@ -173,9 +179,5 @@ if(isset($_POST['name'])){
                 alert("first select item");
                 item.focus();
             }
-
-
-    
-
         }
     </script>
